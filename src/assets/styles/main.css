@@ -1,6 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+    td,
+    th {
+        @apply px-2 py-0.5 border border-gray-400
+    }
+
+    thead tr:nth-child(odd) {
+        @apply bg-gray-300 dark:bg-dark-500
+    }
+
+    tr:nth-child(even) {
+        @apply bg-gray-300 dark:bg-dark-500
+    }
+
+    tr:nth-child(odd) {
+        @apply bg-gray-100 dark:bg-dark-700
+    }
+
+    .test {
+        @apply hover:text-white hover:bg-sky-900 dark:hover:bg-sky-900 cursor-pointer
+    }
+}
 
 * {
     margin: 0;
@@ -12,8 +34,42 @@
 @media only screen and (max-width: 768px) {
     .main {
         width: calc(100% - 60px);
+        left: 60px;
     }
+
     .sidebar {
         width: 60px;
     }
+}
+
+body *::-webkit-scrollbar {
+    width: 7px;
+}
+
+body *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+body *::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 25px;
+}
+
+.sidebar {
+    width: 60px;
+}
+
+.sidebar.open {
+    width: 240px;
+}
+
+.main {
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+.sidebar.open ~ .main {
+    width: calc(100% - 240px);
+    left: 240px;
 }

@@ -1,6 +1,11 @@
 export interface MenuItem {
   title: string;
-  link?: string;
+  link?: string | undefined;
   icon: any;
-  handler?: any
+  handler: any
+}
+
+export interface SelectOption {
+  name: string;
+  value: number | null;
 }

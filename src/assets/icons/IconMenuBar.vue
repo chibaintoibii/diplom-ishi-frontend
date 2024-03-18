@@ -1,32 +1,23 @@
 <template>
-  <div @click="changeSizeSidebar" class="p-2">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-         stroke-width="1.5"
-         stroke="currentColor"
-         class="w-6 h-6 cursor-pointer">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"/>
+  <div @click="changeSizeSidebar" class="p-1 cursor-pointer">
+    <svg v-if="isOpen" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-left">
+      <line x1="17" y1="10" x2="3" y2="10"></line>
+      <line x1="21" y1="6" x2="3" y2="6"></line>
+      <line x1="21" y1="14" x2="3" y2="14"></line>
+      <line x1="17" y1="18" x2="3" y2="18"></line>
     </svg>
+    <i v-else class="fa-solid fa-bars" style="font-size: 20px"></i>
   </div>
 
 </template>
 <script setup lang="ts">
+import {ref} from "vue";
+
+const isOpen = ref(true);
 const changeSizeSidebar = () => {
+  isOpen.value = !isOpen.value
   const sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement;
-  if(sidebar.classList.contains('w-[240px]')) {
-    sidebar.classList.remove('w-[240px]');
-    sidebar.classList.add('w-[60px]')
-  } else {
-    sidebar.classList.remove('w-[60px]')
-    sidebar.classList.add('w-[240px]');
-  }
-  const main = document.getElementsByClassName('main')[0] as HTMLElement;
-  if(main.classList.contains('w-[calc(100%-240px)]')) {
-    main.classList.remove('w-[calc(100%-240px)]');
-    main.classList.add('w-[calc(100%-60px)]')
-  } else {
-    main.classList.remove('w-[calc(100%-60px)]');
-    main.classList.add('w-[calc(100%-240px)]')
-  }
+  sidebar.classList.toggle('open');
 }
 </script>
