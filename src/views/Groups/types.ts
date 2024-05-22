@@ -1,12 +1,14 @@
 export interface IGroupItem {
   _id: string;
-  createdAt: Date;
+  createdAt: string;
   name: string;
   countOfStudents: number;
-  attachedTeacher: string;
+  teacher: {
+    fullName: string
+  };
 }
 
-export interface IGroupDetails extends IGroupItem{
+export interface IGroupDetails extends IGroupItem {
   students: GroupStudentItem[]
 }
 

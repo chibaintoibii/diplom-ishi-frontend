@@ -3,11 +3,11 @@
     <div class="grid grid-cols-4 gap-6 mb-4">
       <InfoCard v-for="infoCard in infoCards" :key="infoCard.label" :data="infoCard" class="h-[100px]"/>
     </div>
-    <div class="grid grid-cols-7 gap-6 h-[400px]">
-      <div class="col-span-5 flex rounded-lg items-center justify-center bg-white">
-        <ChartReport class="h-full w-full"/>
-      </div>
-    </div>
+<!--    <div class="grid grid-cols-7 gap-6 h-[400px]">-->
+<!--      <div class="col-span-5 flex rounded-lg items-center justify-center bg-white">-->
+
+<!--      </div>-->
+<!--    </div>-->
 
 
   </div>

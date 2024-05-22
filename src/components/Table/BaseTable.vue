@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto">
     <div class="">
-      <table class="w-full text-xs table-auto text-sky-950 dark:text-white overflow-x-auto">
+      <table class="w-full table-auto text-sky-950 dark:text-white overflow-x-auto">
         <thead>
         <tr class="bg-white dark:bg-dark-400 ">
           <th

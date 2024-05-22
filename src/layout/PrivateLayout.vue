@@ -2,6 +2,11 @@
 import { RouterView } from 'vue-router';
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 import NavBar from "@/components/Navbar/NavBar.vue";
+import {onBeforeMount} from "vue";
+import {provideUserModule} from "@/modules/user";
+onBeforeMount(() => {
+  provideUserModule()
+})
 </script>
 <template>
   <div class="w-full min-h-[100vh] relative flex">

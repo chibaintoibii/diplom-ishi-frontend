@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "title": "Asosiy sahifa"
+  },
+  "teachers": {
+    "title": "O'qituvchilar",
+    "list": "O'qituvchilar ro'yxati",
+    "add": "Yangi o'qituvchi qo'shish"
+  },
+  "students": {
+    "title": "Talabalar",
+    "register": "Talabani ro'yxatga olish",
+    "add": "Yangi o'quvchi qo'shish"
+  },
+  "reports": {
+    "title": "Hisobotlar",
+    "no": "Hisobot mavjud emas",
+    "create": "Hisobot yaratish"
+  },
+  "groups": {
+    "title": "Guruhlar",
+    "select": "Guruhni tanlash"
+  },
+  "settings": {
+    "title": "Sozlamalar"
+  },
+  "date_picker": {
+    "now": "Hozir",
+    "select": "Tanlash",
+    "close": "Yopish"
+  },
+  "logout": "Chiqish",
+  "full_name": "To'liq ism-sharifi",
+  "username": "Foydalanuvchi nomi",
+  "password": "Parol",
+  "phone_number": "Telefon raqami",
+  "number_of_groups": "Guruhlar soni",
+  "actions": "Harakatlar",
+  "no_data": "Ma'lumot mavjud emas",
+  "save": "Saqlash",
+  "edit": "Tahrirlash",
+  "delete": "O'chirish"
+}

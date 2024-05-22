@@ -1,8 +1,8 @@
 export interface MenuItem {
   title: string;
-  link?: string | undefined;
+  link?: string;
   icon: any;
-  handler: any
+  handler?: any
 }
 
 export interface SelectOption {

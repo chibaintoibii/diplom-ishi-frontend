@@ -21,7 +21,7 @@ const props = defineProps<{
   stroke?: boolean
   disabled?: boolean
   size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'success' | 'danger' | 'warning'
+  variant?: 'primary' | 'success' | 'danger' | 'warning' | 'light'
 }>()
 
 const variantColor = computed(() => (props.variant ? props.variant : 'primary'))
@@ -29,7 +29,7 @@ const variantColor = computed(() => (props.variant ? props.variant : 'primary'))
 
 <style>
 .btn {
-  @apply text-white rounded-lg cursor-pointer  inline-flex gap-2 items-center justify-center;
+  @apply text-white rounded-xl cursor-pointer  inline-flex gap-2 items-center justify-center;
 }
 
 .btn.success:not(.stroke) {
@@ -42,9 +42,14 @@ const variantColor = computed(() => (props.variant ? props.variant : 'primary'))
   @apply hover:bg-[#00ab55] hover:text-white;
 }
 
+.btn.light {
+  @apply bg-[#fff] text-black;
+  @apply hover:bg-gray-100
+}
+
 .btn.primary:not(.stroke) {
-  @apply bg-[#105a85] dark:bg-gray-600;
-  @apply hover:bg-sky-900 dark:hover:bg-gray-700;
+  @apply bg-[#105a85];
+  @apply hover:bg-sky-900
 }
 
 .btn.stroke {
@@ -53,8 +58,8 @@ const variantColor = computed(() => (props.variant ? props.variant : 'primary'))
 }
 
 .btn.primary.stroke {
-  @apply border-[#7753f8] text-[#7753f8];
-  @apply hover:bg-[#7753f8] hover:text-white;
+  @apply border-[#105a85] text-[#105a85];
+  @apply hover:bg-[#105a85] hover:text-white;
 }
 
 .btn.danger:not(.stroke) {

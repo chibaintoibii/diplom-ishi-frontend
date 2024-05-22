@@ -73,3 +73,126 @@ body *::-webkit-scrollbar-thumb {
     width: calc(100% - 240px);
     left: 240px;
 }
+
+.TextInput {
+    font-size: 14px;
+    position: relative;
+    /*margin-bottom: calc(1em * 0.8);*/
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.TextInput input[disabled] {
+    background-color: #f5f5f5 !important;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.TextInput label {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.TextInput .input input,
+.TextInput textarea {
+    min-height: 48px;
+    resize: none;
+    border-radius: 9px;
+    border: 1px solid #dce0e4;
+    padding: 10px;
+    outline: none;
+    background-color: #fff;
+    width: 100%;
+    transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+html.dark .TextInput .place {
+    background-color: rgb(51 65 85);
+}
+
+html.dark .TextInput .input input,
+html.dark .TextInput textarea {
+    background-color: rgb(51 65 85) !important;
+}
+
+.TextInput .input :is(input, textarea):focus,
+.TextInput.focus {
+    border-color: #7753f8;
+    --vs-border-color: #7753f8;
+}
+
+.TextInput .help-message {
+    position: absolute;
+    padding: 0 2px;
+    bottom: calc(-1.5 * 1em);
+    left: 0;
+    margin: 0;
+    font-size: 14px;
+    /*@include limitLine(1);*/
+}
+
+.TextInput.has-error .input :is(input, textarea) {
+    border: 1px solid #f23648;
+    color: #f23648;
+}
+
+.TextInput.has-error .input input:focus {
+    border-color: #f23648;
+}
+
+.TextInput.has-error .help-message {
+    color: #f23648;
+    z-index: 100;
+}
+
+.TextInput.success input:focus {
+    border-color: #7753f8;
+}
+
+.TextInput .place {
+    position: absolute;
+    background: #fff;
+    color: #aaa;
+    transition: 0.2s ease;
+    top: 11px;
+    left: 10px;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.TextInput :is(input, textarea):focus + .place,
+.TextInput.isFilled .place {
+    top: -12px;
+    background: #fff;
+    font-size: 14px;
+    color: #7753f8;
+    display: block;
+}
+
+.TextInput :is(input, textarea):focus::placeholder {
+    color: transparent;
+}
+
+html.dark .TextInput :is(input, textarea):focus + .place,
+html.dark .TextInput.isFilled .place {
+    background-color: rgb(51 65 85);
+}
+
+html.dark .vs__dropdown-menu {
+    background-color: rgb(51 65 85);
+}
+html.dark .vs__selected {
+    /*color: textslate;/*/
+    background-color: rgb(69 84 104);
+}
+
+html.dark .vs--disabled,
+html.dark .vs__dropdown-toggle,
+html.dark .TextInput input[disabled],
+html.dark .TextInput svg {
+    background-color: rgb(51 65 85) !important;
+}

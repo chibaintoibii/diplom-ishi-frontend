@@ -1,8 +1,10 @@
-export interface InputProps {
+export interface IInputProps {
   label?: string
-  placeholder?: string
+  type?: string
+  modelValue: string;
+  placeholder?: string;
   isRequired?: boolean;
-  modelValue: string
+  hasError?: boolean;
+  name: string
   autoFocus?: boolean
-  inputType?: 'text' | 'password'
 }

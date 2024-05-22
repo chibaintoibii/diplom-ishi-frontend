@@ -1,87 +1,18 @@
 <script setup lang="ts">
 import BaseTable from "@/components/Table/BaseTable.vue";
 import BaseButton from "@/components/Button/BaseButton.vue";
-import {TeacherListItem} from "@/views/Teachers/types";
 import {TableHeader, TableSortDirection} from "@/components/Table/types";
-import SearchInput from "@/components/Input/SearchInput.vue";
 import Pagination from "@/components/Table/Pagination.vue";
-import {ref, watch} from "vue";
-import {useRoute} from "vue-router";
-import CreateTeacherModal from "@/components/Modals/CreateTeacherModal.vue";
+import {computed, reactive, Ref, ref, toRaw, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {useRegisterTeacher} from "@/views/Teachers/Modal/useRegisterTeacher";
+import {useI18n} from "vue-i18n";
+import {getTeachers, GetTeachersParams, GetTeachersResponse} from "@/services/http/api/teachers";
 
 const route = useRoute()
+const router = useRouter()
 
-const currentPage = ref(route.query.page || 1);
-const search = ref(route.query.search || '');
-
-const teachers: TeacherListItem[] = [
-  {
-    fullName: 'Iskandarova Sayyora Nurmamatovna',
-    countOfGroups: 8,
-    phoneNumber: '+998 99 123-45-67',
-    username: 'sayyoraiskandarova'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyharfsagfadlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }, {
-    fullName: 'SAYDAZIMOV JAVLONBEK KARIMOVICH',
-    countOfGroups: 5,
-    phoneNumber: '+998 99 123-45-68',
-    username: 'studyhsgdsgardlyyy'
-  }
-]
+const {t} = useI18n()
 
 const headers = ref<TableHeader[]>([
   {
@@ -89,24 +20,24 @@ const headers = ref<TableHeader[]>([
     key: "row_num",
     sortable: true
   }, {
-    label: 'Full name',
+    label: t('full_name'),
     key: "full_name",
     sortable: true
   }, {
-    label: 'Username',
+    label: t('username'),
     key: "username",
     sortable: true
   }, {
-    label: 'Phone number',
+    label: t('phone_number'),
     sortable: true,
     key: "phone_number",
   }, {
-    label: 'Number of groups',
+    label: t('number_of_groups'),
     key: "number_of_groups",
     sortable: true,
   }, {
-    label: 'Actions',
-    key: "actions"
+    label: t('edit'),
+    key: "edit"
 
   },
 ] as TableHeader[])
@@ -117,48 +48,54 @@ function columnSort(sortOptions: { key: string; sort: TableSortDirection }) {
   })
 }
 
-watch(search, (value) => {
-  route.query.search = value;
-})
+const currentPage = ref(1);
 
-const isOpenModal = ref(false);
 
-function onCreateTeacher() {
-  isOpenModal.value = !isOpenModal.value
+const {data, isLoading} = getTeachers({
+  page: currentPage.value
+}) as {
+  isLoading: Ref<boolean>,
+  data: Ref<GetTeachersResponse>
+};
+
+function showRegisterTeacherModal() {
+  useRegisterTeacher().open();
 }
 
-function onCloseModal() {
-  isOpenModal.value = !isOpenModal.value
 
-}
 </script>
 <template>
-  <div class="w-full p-4">
-    <CreateTeacherModal v-if="isOpenModal" @close-modal="onCloseModal" :is-open="isOpenModal"/>
+  <div class="w-full p-4" v-if="!isLoading">
     <div class="mb-4 flex justify-between w-full items-center">
-      <div class="w-[250px]">
-        <SearchInput v-model="search" :autoFocus="true"/>
+      <div class="text-xl tracking-wider text-sky-900 font-semi-bold dark:text-white text-center">
+        <span class="font-bold">{{ t('teachers.list') }}</span>
       </div>
-      <div class="text-xl tracking-wider text-sky-900 font-semibold dark:text-white text-center">Teachers List</div>
       <div>
-        <BaseButton @click="onCreateTeacher" variant="success">
+        <BaseButton @click="showRegisterTeacherModal" variant="success">
           <i class="fa fa-plus"></i>
-          Add new teacher
+          {{ t('teachers.add') }}
         </BaseButton>
       </div>
     </div>
     <BaseTable :headers="headers" @sort="columnSort">
-      <template v-if="true">
-        <tr v-for="(teacher, index) in teachers" :key="teacher.username" class="">
-          <td class="text-center w-[50px]">{{ index + currentPage * 10 - 9 }}</td>
+      <template v-if="data && data.teachers.length > 0">
+        <tr v-for="(teacher, index) in data.teachers" :key="teacher.username" class="">
+          <td class="text-center w-10">{{ index + currentPage * 10 - 9 }}</td>
           <td class="text-center">{{ teacher.fullName }}</td>
           <td class="text-center">{{ teacher.username }}</td>
           <td class="text-center">{{ teacher.phoneNumber }}</td>
-          <td class="text-center underline w-[11rem]">
-            <router-link to="#">{{ teacher.countOfGroups }}</router-link>
+          <td class="text-center w-[200px]">
+            {{ teacher.countOfGroups }}
           </td>
           <td class="text-center w-[5rem]">
-            <BaseButton><i class="fa-solid fa-pen-to-square"></i></BaseButton>
+            <BaseButton class="mt-0.5"><i class="fa-solid fa-pen-to-square"></i></BaseButton>
+          </td>
+        </tr>
+      </template>
+      <template v-else>
+        <tr>
+          <td class="text-center font-medium text-lg" :colspan="headers.length">
+            {{ t('no_data') }}
           </td>
         </tr>
       </template>
@@ -172,6 +109,7 @@ function onCloseModal() {
       />
     </div>
   </div>
+  <Loader v-else />
 </template>
 
 

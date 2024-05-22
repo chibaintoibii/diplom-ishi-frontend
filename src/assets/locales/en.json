@@ -1,0 +1,44 @@
+{
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "teachers": {
+    "title": "Teachers",
+    "list": "Teachers list",
+    "add": "Add new teacher"
+  },
+  "students": {
+    "title": "Students",
+    "register": "Register student",
+    "add": "Add new student"
+  },
+  "reports": {
+    "title": "Reports",
+    "no": "No reports",
+    "create": "Create new reports"
+  },
+  "groups": {
+    "title": "Groups",
+    "select": "Select group"
+  },
+
+  "settings": {
+    "title": "Settings"
+  },
+  "date_picker": {
+    "now": "Now",
+    "select": "Select",
+    "close": "Close"
+  },
+  "logout": "Logout",
+  "full_name": "Full name",
+  "username": "Username",
+  "password": "Password",
+  "phone_number": "Phone number",
+  "number_of_groups": "Number of groups",
+  "actions": "Actions",
+  "no_data": "No data",
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete"
+}

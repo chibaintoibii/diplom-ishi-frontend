@@ -1,102 +1,37 @@
 <template>
-  <div class="grid grid-cols-5 p-3 gap-3">
-    <div class="col-span-2">
-      <div class="border p-4 grid grid-cols-2 bg-white rounded-lg">
-        <div class="mb-4">Group name:</div>
-        <div>{{data.name}}</div>
-        <div class="mb-4">Attached Teacher:</div>
-        <div>{{data.attachedTeacher}}</div>
-        <div class="mb-4">Created At:</div>
-        <div>{{toDateFormat(data.createdAt)}}</div>
-
-      </div>
-
-    </div>
-    <div class="col-span-3">
-      <div class="text-center mb-3">List of Students</div>
-      <BaseTable :headers="tableHeaders" :sub-headers="subHeaders">
-        <template v-if="data && data.students.length > 0">
-          <tr v-for="(student, index) in data.students" :key="student._id">
-            <td class="text-center">{{index + 1}}</td>
-            <td class="text-center">{{student.fullName}}</td>
-            <td class="text-center">{{student.submittedReports}}</td>
-            <td class="text-center">{{student.estimatedReports}}</td>
-            <td class="text-center">{{student.backlogReports}}</td>
-            <td class="text-center">
-              <BaseButton><i style="font-size: 10px" class="fas fa-pen"></i></BaseButton>
-            </td>
-          </tr>
+  <div class="p-2">
+    <CustomTabs :tabs="tabs">
+      <!-- Slot content for each tab -->
+      <template #default="{ tab }">
+        <template v-if="tab.name === 'Reports'">
+          <GroupReports :group-id="groupId"/>
         </template>
-        <template v-else>
-          <tr>
-            <td class="text-center" :colspan="tableHeaders.length + subHeaders.length">No data</td>
-          </tr>
+        <template v-else-if="tab.name === 'Students'">
+          <GroupStudents :group-id="groupId"/>
         </template>
-      </BaseTable>
-    </div>
-
+        <template v-else-if="tab.name === 'Info'">
+          <GroupInfo :group-id="groupId"/>
+        </template>
+      </template>
+    </CustomTabs>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import CustomTabs from '@/components/Tabs/CustomTabs.vue'
+import {ref} from "vue";
+import GroupReports from "@/views/Groups/GroupReports.vue";
 import {useRoute} from "vue-router";
-import {reactive, ref} from "vue";
-import {IGroupDetails} from "@/views/Groups/types";
-import BaseTable from "@/components/Table/BaseTable.vue";
-import {TableHeader} from "@/components/Table/types";
-import BaseButton from "@/components/Button/BaseButton.vue";
-import {toDateFormat} from "@/helper/date";
+import GroupStudents from "@/views/Groups/GroupStudents.vue";
+import GroupInfo from "@/views/Groups/GroupInfo.vue";
 
 const route = useRoute()
-const tableHeaders = reactive<TableHeader[]>([
-  {
-    key: '№',
-    label: '№',
-    rowspan: 2
-  },
-  {
-    key: 'name',
-    label: 'Name',
-    rowspan: 2
-  },
-  {
-    key: 'submitted_reports',
-    label: 'Reports',
-    colspan: 3,
-  },
 
-  {
-    key: 'actions',
-    label: 'Actions',
-    rowspan: 2
-  }
+const groupId = ref(route.params.id.toString());
+
+const tabs = ref([
+  {name: 'Reports'},
+  {name: 'Students'},
+  {name: 'Info'},
 ])
-
-const subHeaders = reactive<TableHeader[]>([
-  {
-    key: 'submitted',
-    label: 'Submitted',
-  },
-  {
-    key: 'estimated',
-    label: 'Estimated'
-  },
-  {
-    key: 'backlog',
-    label: 'Backlog',
-  },
-])
-
-const data = reactive<IGroupDetails>({
-  _id: '13',
-  createdAt: new Date(),
-  attachedTeacher: 'Qosimov Sherzod',
-  name: 'AXF-231-23',
-  countOfStudents: 24,
-  students: []
-})
 </script>
-
-<style scoped>
-
-</style>
